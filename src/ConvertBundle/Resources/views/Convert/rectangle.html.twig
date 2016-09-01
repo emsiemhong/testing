@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style type="text/css">
+#rectangle {
+    border: 1px solid yellow;
+    margin: 30px 0 0 30px;
+    background: darkgreen;
+}
+</style>
+<h2>Rectangle</h2>
+<canvas id="rectangle" width="700" height="600"></canvas>
+<script type="text/javascript">
+    var canvas = document.getElementById('rectangle');
+    var ctx = canvas.getContext('2d');
+
+    function leave(hx, hy, width, height, color) {
+        // assume that x=150, y=400 is the bottom of the heart
+        ctx.moveTo(hx, hy - height);
+        ctx.bezierCurveTo(hx, hy - width, hx - width, hy - width, hx, hy);
+        ctx.bezierCurveTo(hx + width, hy - width, hx, hy - width, hx, hy - height);
+    }
+
+    function flower(fx, fy, width, height, color, skew, leave) {
+        ctx.beginPath();
+        for (var i = 1; i <= 4; i++) {
+            fy -= 15
+            width -= 10;
+            height -= 4;
+            leave(fx, fy, width, height, color);
+        }
+
+        ctx.moveTo(fx + 10, fy + 100);
+        if (skew == 'left') {
+            ctx.moveTo(fx + 10, fy + 100);
+            ctx.bezierCurveTo(fx, fy + 60, fx, fy + 60, fx, fy + 40);
+        } else if (skew == 'right') {
+            ctx.moveTo(fx - 10, fy + 100);
+            ctx.bezierCurveTo(fx, fy + 60, fx, fy + 60, fx, fy + 40);
+        } else {
+            ctx.moveTo(fx, fy + 100);
+            ctx.lineTo(fx, fy + 40);
+        }
+
+        ctx.lineWidth = 1;
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = 'green';
+        ctx.stroke();
+    }
+
+    flower(160, 420, 40, 30, 'white', 'left', leave);
+    flower(200, 400, 50, 40, 'red', '', leave);
+    flower(240, 420, 40, 25, 'yellow', 'right', leave);
+
+</script>
+{% endblock %}

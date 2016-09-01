@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style type="text/css">
+    #rectangle {
+        width: 200px;
+        height: 100px;
+        background: yellow;
+        box-shadow: -10px -10px grey;
+    }
+
+    #circle {
+        width: 100px;
+        height: 100px;
+        background: yellow;
+        -moz-border-radius: 50px;
+        -webkit-border-radius: 50px;
+        border-radius: 50px;
+        box-shadow: -10px -10px grey;
+    }
+
+    #egg {
+        display:block;
+        width: 126px;
+        height: 180px;
+        background-color: yellow;
+        -webkit-border-radius: 63px 63px 63px 63px / 108px 108px 72px 72px;
+        border-radius:         50%  50%  50%  50%  / 60%   60%   40%  40%;
+        box-shadow: -10px -10px grey;
+    }
+
+    div#rectangle,
+    div#circle,
+    div#egg {
+        float: left;
+        margin: 50px;
+    }
+
+    div#rectangle {
+        margin-left: 450px;
+    }
+
+    h2 {
+        margin-bottom: 100px;
+    }
+</style>
+<h2>Dynamic Shadow</h2>
+<div id="rectangle"></div>
+<div id="circle"></div>
+<div id="egg"></div>
+Red<input data="red" type="radio" name="color" class="red" checked="checked" onclick="changeColor(this)" />
+Green<input data="green" type="radio" name="color" class="green" onclick="changeColor(this)" />
+Blue<input data="blue" type="radio" name="color" class="blue" onclick="changeColor(this)" />
+
+<script type="text/javascript">
+    var color = 'red';
+    function changeColor(elem) {
+        color = $(elem).attr('data');
+    }
+
+    (function() {
+        var coorX, coorY,
+            $egg  = $('#egg');
+            $circle  = $('#circle');
+            $rectangle  = $('#rectangle');
+
+        $(document).mousemove(function(e) {
+            e_coorX = $egg.offset().left + ($egg.width()/2) - e.pageX;
+            e_coorY = $egg.offset().top + ($egg.height()/2) - e.pageY;
+            c_coorX = $circle.offset().left + ($egg.width()/2) - e.pageX;
+            c_coorY = $circle.offset().top + ($egg.height()/2) - e.pageY;
+            r_coorX = $rectangle.offset().left + ($egg.width()/2) - e.pageX;
+            r_coorY = $rectangle.offset().top + ($egg.height()/2) - e.pageY;
+            $egg.css('box-shadow', e_coorX + 'px ' + e_coorY + 'px ' + color);
+            $circle.css('box-shadow', c_coorX + 'px ' + c_coorY + 'px ' + color);
+            $rectangle.css('box-shadow', r_coorX + 'px ' + r_coorY + 'px ' + color);
+        });
+
+    })();
+</script>
+{% endblock %}

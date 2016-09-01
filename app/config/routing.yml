@@ -1,0 +1,18 @@
+global:
+    resource: "@GlobalBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+product:
+    resource: "@ProductBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+convert:
+    resource: "@ConvertBundle/Controller/"
+    type:     annotation
+    prefix:   /convert
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

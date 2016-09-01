@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style type="text/css">
+#sabay-icon {
+    background: red;
+    border-radius: 450px;
+    -moz-border-radius: 450px;
+    -webkit-border-radius: 450px;
+    margin-left: 400px;
+}
+</style>
+<h2>Sabay Icon(Canvas)</h2>
+<canvas id="sabay-icon" width="450" height="450"></canvas>
+    <script>
+        var canvas = document.getElementById('sabay-icon');
+        var context = canvas.getContext('2d');
+
+        context.beginPath();
+        context.arc(140,295,30,-4, 2*Math.PI);
+        context.bezierCurveTo(65, 285, 75, 195, 125, 185);
+        context.arc(95,165,30,-12, 2*Math.PI);
+        context.bezierCurveTo(230, 180, 210, 300, 290, 320);
+        context.bezierCurveTo(340, 325, 390, 280, 350, 200);
+        context.arc(355,160,30,-10, 2*Math.PI);
+
+        context.lineWidth = 30;
+        context.fillStyle = 'red';
+        context.fill();
+        context.strokeStyle = 'white';
+        context.stroke();
+    </script>
+{% endblock %}

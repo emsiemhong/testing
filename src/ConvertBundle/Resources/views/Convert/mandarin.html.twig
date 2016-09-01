@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2>English and Mandarin Discount</h2>
+    <input class="en-amount" min="1" max="99" style="width: 40px; float: left;" type="number" name="en-amount" value="10" onchange="convert(this)" />
+    <span>&nbsp;% VS</span>
+    <input class="cn-amount" min="1" max="9" style="width: 40px;" type="number" name="cn-amount" value="9" onchange="convert(this)" />
+    <span>折</span>
+    <p>Please input number between 1 and 99 !!!</p>
+
+    <script>
+        function convert(elem) {
+            var type = $(elem).attr('class');
+            var value = $(elem).val();
+            var result = '';
+
+            if (type == 'en-amount') {
+                result = 10 - (value / 10);
+                if (value == '' || value <= 0 || value >= 100) {
+                    result = '';
+                }
+                $('.cn-amount').val(result);
+            } else if (type == 'cn-amount') {
+                result = 100 - value * 10;
+                if (value == '' || value <= 0 || value >= 10) {
+                    result = '';
+                }
+                $('.en-amount').val(result);
+            }
+        }
+    </script
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style type="text/css">
+#webridge-icon {
+    border: 1px solid #18BEE8;
+    border-radius: 50px;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    margin: 100px 100px;
+}
+</style>
+<h2>WE-Bridge Technology Icon(Canvas)</h2>
+<canvas id="webridge-icon" width="1200" height="300"></canvas>
+    <script>
+        var canvas = document.getElementById('webridge-icon');
+        var ctx = canvas.getContext('2d');
+
+        var parralelogram =  function(
+            parX,
+            parY,
+            parWidth,
+            parHeight,
+            skewX,
+            skewY,
+            color
+        ) {
+            this.parX = parX;
+            this.parY = parY;
+            this.parWidth = parWidth;
+            this.parHeight = parHeight;
+            this.skewX = skewX;
+            this.skewY = skewY;
+            this.color = color;
+
+            if (typeof this.parralelogram !== 'function') {
+                parralelogram.prototype.draw = function() {
+                    ctx.transform(1, this.skewY, this.skewX, 1, 0, 0);
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(this.parX, this.parY, this.parWidth, this.parHeight);
+                };
+            }
+        };
+
+        var rectangle = function(
+            rectX,
+            rectY,
+            rectWidth,
+            rectHeight,
+            cornerRadius,
+            color,
+            lineJoin
+        ) {
+            this.rectX = rectX;
+            this.rectY = rectY;
+            this.rectWidth = rectWidth;
+            this.rectHeight = rectHeight;
+            this.cornerRadius = cornerRadius;
+            this.color = color;
+            this.lineJoin = lineJoin;
+
+            if (typeof this.rectangle !== 'function') {
+                rectangle.prototype.draw = function() {
+                    ctx.lineJoin = this.lineJoin;
+                    ctx.lineWidth = this.cornerRadius;
+
+                    // Change origin and dimensions to match true size (a stroke makes the shape a bit larger)
+                    ctx.fillStyle = this.color;
+                    ctx.strokeStyle = this.color;
+                    ctx.strokeRect(
+                        this.rectX+(this.cornerRadius/2),
+                        this.rectY+(this.cornerRadius/2),
+                        this.rectWidth-this.cornerRadius,
+                        this.rectHeight-this.cornerRadius
+                    );
+                    ctx.fillRect(
+                        this.rectX+(this.cornerRadius/2),
+                        this.rectY+(this.cornerRadius/2),
+                        this.rectWidth-this.cornerRadius,
+                        this.rectHeight-this.cornerRadius
+                    );
+                };
+            }
+        };
+
+        var bgLogo = new rectangle(50, 60, 210, 160, 65, '#18BEE8', 'round');
+
+        var para1 = new parralelogram(0, 150, 15, 30, 0.5, 0, 'red');
+        var para2 = new parralelogram(180, 135, 15, 45, -1, 0, 'red'); // (y) 45 = 30 + 15
+        var para3 = new parralelogram(45, 135, 15, 45, 1, 0, 'red'); // (x) 45 = 180 - 135(= 45 * 3)
+        var para4 = new parralelogram(225, 105, 15, 75, -1, 0, 'red'); // (y) 75 = 45 + 30(is height)
+        var para5 = new parralelogram(242, 105, 45, 15, 0, 0, 'red'); // (x) 242 =  225 + 15(is width) + 2(for a little space)
+        var para6 = new parralelogram(242, 135, 45, 15, 0, 0, 'red'); // (y) 135 = 105 + 30
+        var para7 = new parralelogram(242, 165, 45, 15, 0, 0, 'red'); // (y) 165 = 135 + 30
+
+        bgLogo.draw();
+        para1.draw();
+        para2.draw();
+        para3.draw();
+        para4.draw();
+        para5.draw();
+        para6.draw();
+        para7.draw();
+
+    </script>
+{% endblock %}
